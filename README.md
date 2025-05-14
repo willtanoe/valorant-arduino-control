@@ -1,88 +1,121 @@
 # Valorant Arduino Control
 
-A web-based GUI for controlling Arduino-based Valorant assistance with features like aimbot and triggerbot.
-
-## Setup Instructions
-
-### 1. Arduino Setup
-
-1. Install the Arduino IDE from [arduino.cc](https://www.arduino.cc/en/software)
-2. Open Arduino IDE and install the "Mouse" library:
-   - Go to Tools > Manage Libraries
-   - Search for "Mouse"
-   - Install the "Mouse" library by Arduino
-3. Connect your Arduino Leonardo or Pro Micro (or any ATmega32U4 based board)
-4. Open the `arduino/MouseControl/MouseControl.ino` file in Arduino IDE
-5. Select your board:
-   - Tools > Board > Arduino AVR Boards > Arduino Leonardo
-   - (or select Arduino Pro Micro if using that)
-6. Select the correct port:
-   - Tools > Port > (select your Arduino port)
-7. Click Upload to flash the firmware
-
-### 2. Web Interface Setup
-
-1. Install Node.js if you haven't already
-2. Clone this repository
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-5. Open [http://localhost:8000](http://localhost:8000) in Chrome or Edge (Web Serial API is required)
-
-## Usage
-
-1. Click "Connect" and select your Arduino from the popup
-2. Set your preferred hotkey
-3. Enable the hotkey toggle
-4. Adjust sensitivity as needed
-5. Press the configured hotkey during gameplay to activate
-
-## Important Notes
-
-- This project requires a browser that supports the Web Serial API (Chrome or Edge)
-- Only Arduino boards with ATmega32U4 (Leonardo, Pro Micro, etc.) are supported as they can act as a USB mouse
-- Make sure to run the web interface with proper permissions to access serial ports
-- This is for educational purposes only
+A modern web interface for Arduino-based Valorant assistance with screen capture and pixel detection.
 
 ## Features
 
-- Web-based control interface
-- Customizable hotkeys
-- Adjustable sensitivity
-- Real-time connection status
-- Error handling and user feedback
-- Modern dark theme UI
+- Aimbot with customizable sensitivity and hotkey
+- Triggerbot with adjustable delay
+- Modern web interface built with Next.js and Tailwind CSS
+- Real-time status monitoring
+- Background operation support
+- Arduino serial communication
+- Screen capture and pixel detection
 
-## Technical Details
+## Requirements
 
-- Uses Web Serial API for Arduino communication
-- Built with Next.js and TypeScript
-- Styled with Tailwind CSS
-- Uses shadcn/ui components
-- Arduino firmware handles mouse movement via USB HID
+### Hardware
+- Arduino Leonardo or Pro Micro
+- USB cable
+
+### Software
+- Node.js 16+
+- Python 3.8+
+- Chrome or Edge browser (for Web Serial API support)
+
+## Setup Instructions
+
+1. Install Arduino firmware:
+   ```bash
+   # Upload MouseControl.ino to your Arduino using Arduino IDE
+   ```
+
+2. Install Python dependencies:
+   ```bash
+   cd src/python
+   pip install -r requirements.txt
+   ```
+
+3. Install Node.js dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the Python backend:
+   ```bash
+   cd src/python
+   python server.py
+   ```
+
+5. Start the web interface:
+   ```bash
+   npm run dev
+   ```
+
+6. Open http://localhost:8000 in Chrome or Edge
+
+## Usage
+
+1. Connect Arduino:
+   - Click "Start" in the Arduino Control Panel
+   - Select your Arduino from the port list
+   - Wait for connection confirmation
+
+2. Configure Settings:
+   - Adjust aimbot sensitivity
+   - Set custom hotkeys
+   - Configure triggerbot delay
+
+3. Operation:
+   - Use MOUSE5 for aimbot (default)
+   - Use MOUSE4 for triggerbot (default)
+   - The assist will run in the background while the browser tab is open
+
+## Important Notes
+
+- Run the game in windowed or borderless windowed mode
+- Ensure Python backend is running before using the web interface
+- Keep the browser tab open for the assist to work
+- Administrator privileges may be required for keyboard/mouse control
 
 ## Troubleshooting
 
-1. **Arduino Not Detected**
-   - Make sure you're using a compatible Arduino board (ATmega32U4 based)
-   - Check if the correct port is selected in Arduino IDE
-   - Try unplugging and replugging the Arduino
+1. Arduino not detected:
+   - Check USB connection
+   - Verify correct COM port
+   - Try reinstalling Arduino drivers
 
-2. **Connection Failed**
-   - Ensure the correct firmware is uploaded
-   - Check if the Arduino is properly connected
-   - Try refreshing the page and reconnecting
+2. Assist not working:
+   - Confirm Python backend is running
+   - Check browser console for errors
+   - Verify game window is active
+   - Run as administrator if needed
 
-3. **Movement Not Working**
-   - Verify the hotkey is properly set and enabled
-   - Check the serial monitor in Arduino IDE for debugging
-   - Adjust sensitivity settings
+## Development
 
-## License
+The project consists of three main components:
 
-This project is for educational purposes only. Use responsibly.
+1. Web Interface (Next.js):
+   - Modern UI for control and monitoring
+   - Real-time status updates
+   - Settings management
+
+2. Python Backend:
+   - Screen capture and pixel detection
+   - Arduino serial communication
+   - Background operation handling
+
+3. Arduino Firmware:
+   - Mouse movement control
+   - Serial protocol handling
+   - Fast response time optimization
+
+## Security
+
+- The web interface runs locally only
+- No data is sent outside your computer
+- All communication is between the web interface, Python backend, and Arduino
+
+## Disclaimer
+
+This project is for educational purposes only. Use at your own risk.

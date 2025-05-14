@@ -10,8 +10,8 @@ byte buffer[BUFFER_SIZE];
 int bufferIndex = 0;
 
 void setup() {
-  // Initialize serial communication
-  Serial.begin(9600);
+  // Initialize serial communication at 115200 baud
+  Serial.begin(115200);
   
   // Initialize mouse control
   Mouse.begin();
